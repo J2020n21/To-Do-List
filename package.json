@@ -1,0 +1,14 @@
+{
+  "name": "to-do",
+  "version": "1.0.0",
+  "description": "To-do apps with simple html with node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jiui son",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
