@@ -50,13 +50,20 @@ app.post('/add',function(req,res){
         var date = req.body.date;
         var detail = req.body.detail;
         db.collection('post').insertOne( {_id:Post+1,Title:todo, Date:date, Detail:detail} , function(){
-            console.log("Saved");
+            //console.log("Saved");
             db.collection('counter').updateOne({name:'total post'},{ $inc : {totalPost: 1}},(err,result)=>{
                 if(err) return console.log(err)
-                console.log("incremented");
+                //console.log("incremented");
             });
         });
         
     });
+});
+
+// delete post
+app.delete('/delete',(req,res)=>{
+    console.log(res.body); //{_id:'1'}
+    parseInt(res.body._id);
+    db.collection('post').deleteOne({_id : res.body}, ()=>{})
 });
 
