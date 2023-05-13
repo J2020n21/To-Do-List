@@ -29,6 +29,7 @@ app.get("/write", function(req,res){
     res.sendFile(__dirname +"/write.html");
 })
 
+// read "to-do"
 app.get("/list",function(req,res){
     
     db.collection('post').find().toArray(function(err,result){
@@ -38,13 +39,24 @@ app.get("/list",function(req,res){
 
 })
 
+// create "to-do"
 app.post('/add',function(req,res){
     res.send("sended");
-    var todo = req.body.todo;
-    var date = req.body.date;
-    var detail = req.body.detail;
-    db.collection('post').insertOne( {Title:todo, Date:date, Detail:detail} , function(){
-        console.log("Saved");
+    db.collection('counter').findOne({name:"total post"},function(err,result){
+        //console.log(result.totalPost);
+        var Post = result.totalPost;
+
+        var todo = req.body.todo;
+        var date = req.body.date;
+        var detail = req.body.detail;
+        db.collection('post').insertOne( {_id:Post+1,Title:todo, Date:date, Detail:detail} , function(){
+            console.log("Saved");
+            db.collection('counter').updateOne({name:'total post'},{ $inc : {totalPost: 1}},(err,result)=>{
+                if(err) return console.log(err)
+                console.log("incremented");
+            });
+        });
+        
     });
-})
+});
 
