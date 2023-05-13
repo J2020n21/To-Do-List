@@ -64,6 +64,10 @@ app.post('/add',function(req,res){
 app.delete('/delete',(req,res)=>{
     console.log(res.body); //{_id:'1'}
     parseInt(res.body._id);
-    db.collection('post').deleteOne({_id : res.body}, ()=>{})
+    db.collection('post').deleteOne({_id : res.body}, (err,result)=>{
+        res.status(200).send({message: 'Success'}); //success
+    });
+
+    
 });
 

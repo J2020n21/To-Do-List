@@ -37,7 +37,7 @@
               <h4>Do: <%= posts[i].Title %></h4>
               <h5>detail: <%= posts[i].Detail %></h5>
               <p>until: <%= posts[i].Date %></p>
-              <button class="btn btn-primary delete-btn">Delete</button>
+              <button class="btn btn-primary delete-btn" data-id="<%= posts[i]._id %>">Delete</button>
             </li>
           <% } %>
         </ul>
@@ -46,15 +46,23 @@
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
       <script>
 
-        $('.delete-btn').click(()=>{
+        $('.delete-btn').click((e)=>{
+          var post_no = e.target.dataset.id; //clicked element's data-id
+          var now_selected = $(this);
           $.ajax({
             method: 'DELETE',
             url: '/delete',
-            data: {_id : 1}
-          }).done(function(result){
-            console.log("ajax- delete success");
+            data: {_id : post_no}
+          }).done((result)=>{
+            console.log('Delete Success!');
+            // refresh page by force OR >disablied li element<
+            now_selected.parent('li').fadeOut();
+
+          }).fail((xhr, textStatus, errorThrown)=>{
+              console.log(xhr,textStatus,errorThrown);
           });
-        })
+          
+        });
 
 
       </script>
