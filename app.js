@@ -67,7 +67,14 @@ app.delete('/delete',(req,res)=>{
     db.collection('post').deleteOne({_id : res.body}, (err,result)=>{
         res.status(200).send({message: 'Success'}); //success
     });
+});
 
+
+//detail page: correspond to url
+app.get("/detail/:id",(req,response)=>{
+    db.collection('post').findOne({_id:parseInt(req.params.id) },(err,result)=>{
+        response.render('detail.ejs', {data : result}); //send data together {name:data}
+    });
     
 });
 
