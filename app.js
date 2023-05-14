@@ -5,6 +5,10 @@ app.use(express.urlencoded({extended: true}))
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs'); //setting to use ejs
 
+
+app.use('/public', express.static('public'));
+
+
 var db;
 MongoClient.connect('mongodb+srv://jiui4691:5G6jmgAHJtsJshHV@cluster0.komdm2b.mongodb.net/?retryWrites=true&w=majority'
 ,function(error, client){
@@ -22,7 +26,7 @@ MongoClient.connect('mongodb+srv://jiui4691:5G6jmgAHJtsJshHV@cluster0.komdm2b.mo
 })
 
 app.get("/", function(req,res){
-    res.sendFile(__dirname + "/index.html");
+    res.render('index.ejs');
 })
 
 app.get("/write", function(req,res){
