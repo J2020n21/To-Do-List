@@ -82,3 +82,10 @@ app.get("/detail/:id",(req,response)=>{
     
 });
 
+//show edit page
+app.get("/edit/:id",(req,res)=>{
+    db.collection('post').findOne({_id:parseInt(req.params.id) },(err,result)=>{
+    res.render('edit.ejs',{post:result});
+    });
+    // error handling
+});
